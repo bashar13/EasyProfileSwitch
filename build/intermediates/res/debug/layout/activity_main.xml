@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_material_dark"
+    tools:context=".MainActivity" >
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:divider="#b5b5b5"
+        android:dividerHeight="1dp"
+        android:listSelector= "@drawable/list_background"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"/>
+
+</RelativeLayout><!-- From: file:/C:/Users/Jahid/StudioProjects/ORNotifier/easyprofileswitch/src/main/res/layout/activity_main.xml -->

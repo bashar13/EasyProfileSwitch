@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:textSize="18sp"
+        android:textColor="@color/primary_material_light"
+        android:typeface="sans"
+        android:id="@+id/vol_text_view" /><!-- From: file:/C:/Users/Jahid/StudioProjects/ORNotifier/easyprofileswitch/src/main/res/layout/spinner_vol_custom_.xml -->

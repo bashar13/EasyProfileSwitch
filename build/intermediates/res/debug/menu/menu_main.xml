@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item android:id="@+id/action_add" android:title="@string/action_add"
+        android:orderInCategory="100" app:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="101" app:showAsAction="never" />
+    <item android:id="@+id/action_reset" android:title="@string/action_reset"
+        android:orderInCategory="102" app:showAsAction="never" />
+    <item android:id="@+id/action_help" android:title="@string/action_help"
+        android:orderInCategory="103" app:showAsAction="never" />
+    <item android:id="@+id/action_about" android:title="@string/action_about"
+        android:orderInCategory="104" app:showAsAction="never" />
+</menu>
+<!-- From: file:/C:/Users/Jahid/StudioProjects/ORNotifier/easyprofileswitch/src/main/res/menu/menu_main.xml -->

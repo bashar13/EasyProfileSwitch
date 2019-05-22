@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:dividerPadding="12dp"
+        android:orientation="vertical"
+        android:showDividers="end" >
+
+        <Button
+            android:id="@+id/action_cancel"
+            style="@style/Base.ThemeOverlay.AppCompat.Light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="CANCEL"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:dividerPadding="12dp"
+        android:orientation="vertical"
+        android:showDividers="beginning" >
+
+        <Button
+            android:id="@+id/action_save"
+            style="@style/ThemeOverlay.AppCompat.Light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="SAVE"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+<!-- From: file:/C:/Users/Jahid/StudioProjects/ORNotifier/easyprofileswitch/src/main/res/layout/action_save_cancel.xml -->

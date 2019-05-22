@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tab_img"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/ic_dropdown"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:textColor="@color/primary_material_light"
+        android:id="@+id/group_name"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:typeface="sans"
+        android:focusable="false"
+        android:layout_toRightOf="@+id/tab_img"
+        android:layout_toEndOf="@+id/tab_img" />
+</RelativeLayout><!-- From: file:/C:/Users/Jahid/StudioProjects/ORNotifier/easyprofileswitch/src/main/res/layout/group_row.xml -->
