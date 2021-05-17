@@ -33,6 +33,9 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bashar.easyprofileswitch.database.DBhelper;
+import com.bashar.easyprofileswitch.database.SQLController;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
@@ -43,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
     ListView lvMain;
     SQLController dbcon;
     SimpleCursorAdapter adapter;
-    Long profile_id;
+    int profile_id;
     SharedPreferences settings_pref, main_pref;
     int sel_nor, sel_min;
     String pos;
     CustormAdapter array_adapter;
-    TextView pro_id;
+    TextView profileId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,164 +70,161 @@ public class MainActivity extends AppCompatActivity {
         createProfileList();
         updateProfileList();
 
-        lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Cursor tmp = (Cursor)parent.getItemAtPosition(position);
-                pro_id = (TextView) view.findViewById(R.id.profile_id);
-                pos = pro_id.getText().toString();
-                Long sel_id = Long.parseLong(pos);
-                //Toast.makeText(MainActivity.this, temp_id, Toast.LENGTH_LONG).show();
-                //pos = parent.getPositionForView(view);
+        lvMain.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
+            //Cursor tmp = (Cursor)parent.getItemAtPosition(position);
+            profileId = (TextView) view.findViewById(R.id.profile_id);
+            pos = profileId.getText().toString();
+            int selectedId = Integer.parseInt(pos);
+            //Toast.makeText(MainActivity.this, temp_id, Toast.LENGTH_LONG).show();
+            //pos = parent.getPositionForView(view);
 
-                storeMainPref();
+            storeMainPref();
 
-                updateProfileList();
+            updateProfileList();
 
-                Cursor c = dbcon.readSpecificData(DBhelper.TABLE_PROFILE, sel_id);
-                //Toast.makeText(MainActivity.this, "Id" + sel_id, Toast.LENGTH_LONG).show();
-                AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+            Cursor c = dbcon.readSpecificData(DBhelper.TABLE_PROFILE, selectedId);
+            //Toast.makeText(MainActivity.this, "Id" + selectedId, Toast.LENGTH_LONG).show();
+            AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-                if(c.getString(2).equals("Ring + Vib")) {
-                    am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER,
-                            AudioManager.VIBRATE_SETTING_ON);
-                }
-                else if(c.getString(2).equals("Vib Only")) {
-                    Toast.makeText(MainActivity.this, "Vib Only", Toast.LENGTH_LONG).show();
-                    am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-
-                }
-                else if(c.getString(2).equals("Silent")) {
-                    am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-
-                }
-                else if(c.getString(2).equals("Ring Only")) {
-                    am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER,
-                            AudioManager.VIBRATE_SETTING_OFF);
-                    Toast.makeText(MainActivity.this, "Ring Only", Toast.LENGTH_LONG).show();
-
-                }
-
-
-                if(c.getString(3).equals("No Change")) {
-                    //DO NOTHING
-
-                }
-                else if(c.getString(3).equals("Max")) {
-                    int progress = am.getStreamMaxVolume(AudioManager.STREAM_RING);
-                    am.setStreamVolume(AudioManager.STREAM_RING, progress, AudioManager.ADJUST_RAISE);
-
-                }
-                else if(c.getString(3).equals("Normal")) {
-
-                    //audiomanager.setStreamMute(AudioManager.STREAM_SYSTEM, false)
-                    //Toast.makeText(MainActivity.this, "sel "+ sel_nor, Toast.LENGTH_LONG).show();
-                    int max = am.getStreamMaxVolume(AudioManager.STREAM_RING);
-                    int normal_level = (max * sel_nor)/10;
-                    //Toast.makeText(MainActivity.this, "max "+max + " " +"Normal "+normal_level, Toast.LENGTH_LONG).show();
-
-                    am.setStreamVolume(AudioManager.STREAM_RING, normal_level, AudioManager.FLAG_PLAY_SOUND);
-
-                }
-                else if(c.getString(3).equals("Min")) {
-                    int max = am.getStreamMaxVolume(AudioManager.STREAM_RING);
-                    int min_level = (max * sel_min)/10;
-                    am.setStreamVolume(AudioManager.STREAM_RING, min_level, AudioManager.FLAG_PLAY_SOUND);
-
-                }
-
-                if(c.getString(4).equals("No Change")) {
-
-                }
-                else if(c.getString(4).equals("Normal")) {
-                    int max = am.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                    int normal_level = (max * sel_nor)/10;
-                    am.setStreamMute(AudioManager.STREAM_ALARM, false);
-                    am.setStreamVolume(AudioManager.STREAM_ALARM, normal_level, AudioManager.FLAG_PLAY_SOUND);
-
-                }
-                else if(c.getString(4).equals("Off")) {
-                    am.setStreamMute(AudioManager.STREAM_ALARM, true);
-
-                }
-                else if(c.getString(4).equals("Max")) {
-                    am.setStreamMute(AudioManager.STREAM_ALARM, false);
-                    int progress = am.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                    am.setStreamVolume(AudioManager.STREAM_ALARM, progress, AudioManager.FLAG_PLAY_SOUND);
-
-                }
-
-                if(c.getString(5).equals("No Change")) {
-
-                }
-                else if(c.getString(5).equals("Normal")) {
-                    int max_noti = am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                    int normal_noti = (max_noti * sel_nor)/10;
-                    int max_sys = am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-                    int normal_sys = (max_sys * sel_nor)/10;
-
-                    am.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-                    am.setStreamMute(AudioManager.STREAM_SYSTEM, false);
-
-                    am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, normal_noti, AudioManager.FLAG_PLAY_SOUND);
-                    am.setStreamVolume(AudioManager.STREAM_SYSTEM, normal_sys, AudioManager.FLAG_PLAY_SOUND);
-
-                }
-                else if(c.getString(5).equals("Min")) {
-                    int max_noti = am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                    int min_noti = (max_noti * sel_min)/10;
-                    int max_sys = am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-                    int min_sys = (max_sys * sel_min)/10;
-
-                    am.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-                    am.setStreamMute(AudioManager.STREAM_SYSTEM, false);
-
-                    am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, min_noti, AudioManager.FLAG_PLAY_SOUND);
-                    am.setStreamVolume(AudioManager.STREAM_SYSTEM, min_sys, AudioManager.FLAG_PLAY_SOUND);
-
-                }
-                else if(c.getString(5).equals("Max")) {
-                    am.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-                    am.setStreamMute(AudioManager.STREAM_SYSTEM, false);
-                    int progress = am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                    am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, progress, AudioManager.FLAG_PLAY_SOUND);
-                    progress = am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-                    am.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, AudioManager.FLAG_PLAY_SOUND);
-
-                }
-
-
-                if(c.getString(6).equals("No Change")) {
-                    //do nothing
-
-                }
-                else if(c.getString(6).equals("On")) {
-                    toggleWiFi(true);
-
-                }
-                else if(c.getString(6).equals("Off")) {
-                    toggleWiFi(false);
-
-                }
-
-
-                if(c.getString(7).equals("No Change")) {
-
-                }
-                else if(c.getString(7).equals("On")) {
-                    mobileData(true);
-
-                }
-                else if(c.getString(7).equals("Off")) {
-                    mobileData(false);
-
-                }
-
-                setProfileDelay(c);
+            if(c.getString(2).equals("Ring + Vib")) {
+                am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER,
+                        AudioManager.VIBRATE_SETTING_ON);
+            }
+            else if(c.getString(2).equals("Vib Only")) {
+                Toast.makeText(MainActivity.this, "Vib Only", Toast.LENGTH_LONG).show();
+                am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
 
             }
+            else if(c.getString(2).equals("Silent")) {
+                am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+            }
+            else if(c.getString(2).equals("Ring Only")) {
+                am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER,
+                        AudioManager.VIBRATE_SETTING_OFF);
+                Toast.makeText(MainActivity.this, "Ring Only", Toast.LENGTH_LONG).show();
+
+            }
+
+
+            if(c.getString(3).equals("No Change")) {
+                //DO NOTHING
+
+            }
+            else if(c.getString(3).equals("Max")) {
+                int progress = am.getStreamMaxVolume(AudioManager.STREAM_RING);
+                am.setStreamVolume(AudioManager.STREAM_RING, progress, AudioManager.ADJUST_RAISE);
+
+            }
+            else if(c.getString(3).equals("Normal")) {
+
+                //audiomanager.setStreamMute(AudioManager.STREAM_SYSTEM, false)
+                //Toast.makeText(MainActivity.this, "sel "+ sel_nor, Toast.LENGTH_LONG).show();
+                int max = am.getStreamMaxVolume(AudioManager.STREAM_RING);
+                int normal_level = (max * sel_nor)/10;
+                //Toast.makeText(MainActivity.this, "max "+max + " " +"Normal "+normal_level, Toast.LENGTH_LONG).show();
+
+                am.setStreamVolume(AudioManager.STREAM_RING, normal_level, AudioManager.FLAG_PLAY_SOUND);
+
+            }
+            else if(c.getString(3).equals("Min")) {
+                int max = am.getStreamMaxVolume(AudioManager.STREAM_RING);
+                int min_level = (max * sel_min)/10;
+                am.setStreamVolume(AudioManager.STREAM_RING, min_level, AudioManager.FLAG_PLAY_SOUND);
+
+            }
+
+            if(c.getString(4).equals("No Change")) {
+
+            }
+            else if(c.getString(4).equals("Normal")) {
+                int max = am.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                int normal_level = (max * sel_nor)/10;
+                am.setStreamMute(AudioManager.STREAM_ALARM, false);
+                am.setStreamVolume(AudioManager.STREAM_ALARM, normal_level, AudioManager.FLAG_PLAY_SOUND);
+
+            }
+            else if(c.getString(4).equals("Off")) {
+                am.setStreamMute(AudioManager.STREAM_ALARM, true);
+
+            }
+            else if(c.getString(4).equals("Max")) {
+                am.setStreamMute(AudioManager.STREAM_ALARM, false);
+                int progress = am.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                am.setStreamVolume(AudioManager.STREAM_ALARM, progress, AudioManager.FLAG_PLAY_SOUND);
+
+            }
+
+            if(c.getString(5).equals("No Change")) {
+
+            }
+            else if(c.getString(5).equals("Normal")) {
+                int max_noti = am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                int normal_noti = (max_noti * sel_nor)/10;
+                int max_sys = am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                int normal_sys = (max_sys * sel_nor)/10;
+
+                am.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+                am.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+
+                am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, normal_noti, AudioManager.FLAG_PLAY_SOUND);
+                am.setStreamVolume(AudioManager.STREAM_SYSTEM, normal_sys, AudioManager.FLAG_PLAY_SOUND);
+
+            }
+            else if(c.getString(5).equals("Min")) {
+                int max_noti = am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                int min_noti = (max_noti * sel_min)/10;
+                int max_sys = am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                int min_sys = (max_sys * sel_min)/10;
+
+                am.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+                am.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+
+                am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, min_noti, AudioManager.FLAG_PLAY_SOUND);
+                am.setStreamVolume(AudioManager.STREAM_SYSTEM, min_sys, AudioManager.FLAG_PLAY_SOUND);
+
+            }
+            else if(c.getString(5).equals("Max")) {
+                am.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+                am.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+                int progress = am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, progress, AudioManager.FLAG_PLAY_SOUND);
+                progress = am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                am.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, AudioManager.FLAG_PLAY_SOUND);
+
+            }
+
+
+            if(c.getString(6).equals("No Change")) {
+                //do nothing
+
+            }
+            else if(c.getString(6).equals("On")) {
+                toggleWiFi(true);
+
+            }
+            else if(c.getString(6).equals("Off")) {
+                toggleWiFi(false);
+
+            }
+
+
+            if(c.getString(7).equals("No Change")) {
+
+            }
+            else if(c.getString(7).equals("On")) {
+                mobileData(true);
+
+            }
+            else if(c.getString(7).equals("Off")) {
+                mobileData(false);
+
+            }
+
+            //setProfileDelay(c);
+
         });
 
         lvMain.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                 //Cursor tmp = (Cursor)parent.getItemAtPosition(position);
                 String profile_str = parent.getItemAtPosition(position).toString();
                 //Toast.makeText(MainActivity.this, tmp.getString(0) + tmp.getString(1) + tmp.getString(2), Toast.LENGTH_LONG).show();
-                profile_id = Long.parseLong(profile_str);
+                profile_id = Integer.parseInt(profile_str);
                 startActionMode(mActionModeCallback);
                 return true;
             }
@@ -454,8 +454,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toggleWiFi(boolean status) {
-        WifiManager wifiManager = (WifiManager) this
-                .getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (status == true && !wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         } else if (status == false && wifiManager.isWifiEnabled()) {
@@ -541,14 +540,14 @@ public class MainActivity extends AppCompatActivity {
         getPref();
         sel_nor = sel_nor + 4;
         sel_min = sel_min + 2;
-        String profile_name[] =  {"Normal", "Meeting", "Silent", "Prayer"};
-        int profile_image[] = {R.drawable.ic_normal, R.drawable.ic_meeting, R.drawable.ic_silent, R.drawable.ic_prayer};
-        String profile_ring[] = {"Ring + Vib", "Vib Only", "Silent", "Silent" };
-        String profile_ring_vol[] = {"Normal", "Vib Only", "Silent", "Silent"};
-        String profile_alarm_vol[] = {"Normal", "Off", "Off", "Off"};
-        String profile_sounds[] = {"Normal", "Vib Only", "Silent", "Silent" };
-        String profile_wifi[] = {"No Change", "No Change", "No Change", "Off" };
-        String profile_m_data[] = {"No Change", "No Change", "No Change", "Off" };
+        String[] profile_name =  {"Normal", "Meeting", "Silent", "Prayer"};
+        int[] profile_image = {R.drawable.ic_normal, R.drawable.ic_meeting, R.drawable.ic_silent, R.drawable.ic_prayer};
+        String[] profile_ring = {"Ring + Vib", "Vib Only", "Silent", "Silent" };
+        String[] profile_ring_vol = {"Normal", "Vib Only", "Silent", "Silent"};
+        String[] profile_alarm_vol = {"Normal", "Off", "Off", "Off"};
+        String[] profile_sounds = {"Normal", "Vib Only", "Silent", "Silent" };
+        String[] profile_wifi = {"No Change", "No Change", "No Change", "Off" };
+        String[] profile_m_data = {"No Change", "No Change", "No Change", "Off" };
 
         Cursor c = dbcon.readData();
         boolean checkRec = c.moveToFirst();

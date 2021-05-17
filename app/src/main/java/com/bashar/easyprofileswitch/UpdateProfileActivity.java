@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +25,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bashar.easyprofileswitch.database.DBhelper;
+import com.bashar.easyprofileswitch.database.SQLController;
 
 public class UpdateProfileActivity extends Activity {
     SQLController dbcon;
@@ -53,7 +56,7 @@ public class UpdateProfileActivity extends Activity {
         Button save = (Button)findViewById(R.id.but_save);
 
         Intent i = getIntent();
-        final Long profile_id = i.getLongExtra("Profile_id", 1);
+        final int profile_id = i.getIntExtra("Profile_id", 1);
         dbcon = new SQLController(this);
         dbcon.open();
         Cursor c = dbcon.readSpecificData(DBhelper.TABLE_PROFILE, profile_id);

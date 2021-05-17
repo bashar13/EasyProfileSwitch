@@ -1,11 +1,10 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class SQLController {
 
@@ -29,8 +28,9 @@ public class SQLController {
 	}
 
 	public void insertData(String name, String ring, String ring_vol, String alarm, String sound, String wifi, String m_data, int image,
-						   String start1, String start2, String start3, String start4, String start5, String delay,
-						   String sel_s1, String sel_s2, String sel_s3, String sel_s4, String sel_s5, String sel_delay, String after_timer) {
+						   String start1, String start2, String start3, String start4, String start5,
+						   String sel_s1, String sel_s2, String sel_s3, String sel_s4, String sel_s5,
+						   String delay, String sel_delay, String after_timer) {
 		ContentValues cv = new ContentValues();
 		cv.put(DBhelper.PROFILE_NAME, name);
 		cv.put(DBhelper.PROFILE_SOUND, sound);
@@ -50,9 +50,9 @@ public class SQLController {
 		cv.put(DBhelper.PROFILE_START2_SEL, sel_s2);
 		cv.put(DBhelper.PROFILE_START3_SEL, sel_s3);
 		cv.put(DBhelper.PROFILE_START4_SEL, sel_s4);
+		//cv.put(DBhelper.PROFILE_AFTER_TIMER, after_timer);
 		cv.put(DBhelper.PROFILE_START5_SEL, sel_s5);
 		cv.put(DBhelper.PROFILE_DELAY_SEL, sel_delay);
-		cv.put(DBhelper.PROFILE_AFTER_TIMER, after_timer);
 		database.insert(DBhelper.TABLE_PROFILE, null, cv);
 	}
 
@@ -60,10 +60,11 @@ public class SQLController {
 		String[] allColumns = new String[] { DBhelper.PROFILE_ID, DBhelper.PROFILE_NAME,
 				DBhelper.PROFILE_RINGTONE, DBhelper.PROFILE_RING_VOL, DBhelper.PROFILE_ALARM, DBhelper.PROFILE_SOUND,
 				DBhelper.PROFILE_WIFI, DBhelper.PROFILE_MOBILEDATA, DBhelper.PROFILE_IMAGE,
-				DBhelper.PROFILE_DELAY_SEL, DBhelper.PROFILE_START1_SEL, DBhelper.PROFILE_START2_SEL, DBhelper.PROFILE_START3_SEL,
+				DBhelper.PROFILE_START1, DBhelper.PROFILE_START2, DBhelper.PROFILE_START3,
+				DBhelper.PROFILE_START4, DBhelper.PROFILE_START5,
+				DBhelper.PROFILE_START1_SEL, DBhelper.PROFILE_START2_SEL, DBhelper.PROFILE_START3_SEL,
 				DBhelper.PROFILE_START4_SEL, DBhelper.PROFILE_START5_SEL,
-				DBhelper.PROFILE_DELAY, DBhelper.PROFILE_START1, DBhelper.PROFILE_START2, DBhelper.PROFILE_START3,
-				DBhelper.PROFILE_START4, DBhelper.PROFILE_START5, DBhelper.PROFILE_AFTER_TIMER};
+				DBhelper.PROFILE_DELAY, DBhelper.PROFILE_DELAY_SEL};
 		Cursor c = database.query(DBhelper.TABLE_PROFILE, allColumns, null,
 				null, null, null, null);
 		if (c != null) {
@@ -144,7 +145,7 @@ public class SQLController {
 
 	}
 
-	public void deleteData(long profileID) {
+	public void deleteData(int profileID) {
 		database.delete(DBhelper.TABLE_PROFILE, DBhelper.PROFILE_ID + "="
 				+ profileID, null);
 	}
@@ -156,7 +157,7 @@ public class SQLController {
 		//database.delete("SQLITE_SEQUENCE", "NAME = ?", new String[]{DBhelper.TABLE_PROFILE});
 	}
 
-	public Cursor readSpecificData(String tableName, long row_id) {
+	public Cursor readSpecificData(String tableName, int row_id) {
 		String[] allColumns = new String[] { DBhelper.PROFILE_ID,
 				DBhelper.PROFILE_NAME, DBhelper.PROFILE_RINGTONE, DBhelper.PROFILE_RING_VOL,
                 DBhelper.PROFILE_ALARM, DBhelper.PROFILE_SOUND, DBhelper.PROFILE_WIFI,
@@ -205,5 +206,5 @@ public class SQLController {
 		}
 		return 0;
 	}
-	
+
 }// outer class end

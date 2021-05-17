@@ -25,6 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bashar.easyprofileswitch.database.SQLController;
+
 public class EditProfileActivity extends Activity {
 
     private ListView listView;

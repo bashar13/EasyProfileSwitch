@@ -17,6 +17,9 @@ import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bashar.easyprofileswitch.database.DBhelper;
+import com.bashar.easyprofileswitch.database.SQLController;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -233,7 +236,7 @@ public class SettingsActivity extends AppCompatActivity {
             profile_start4_data[j] = cursor.getString(19);
             profile_start5_data[j] = cursor.getString(20);
 
-            long timer_id = Long.parseLong(cursor.getString(21));
+            int timer_id = Integer.parseInt(cursor.getString(21));
             Cursor timer_c = dbcon.readSpecificData(DBhelper.TABLE_PROFILE, timer_id);
             profile_timer[j] = timer_c.getString(1);
             j++;

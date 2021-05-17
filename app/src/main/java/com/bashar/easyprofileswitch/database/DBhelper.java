@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,14 +32,14 @@ public class DBhelper extends SQLiteOpenHelper {
 	public static final String PROFILE_START5_SEL = "start5sel";
 	public static final String PROFILE_DELAY_SEL = "delaysel";
 
-	public static final String PROFILE_AFTER_TIMER = "after";
+	public static final String PROFILE_AFTER_TIMER = "aftertimer";
 
 
 		
 
 		// DATABASE INFORMATION
 		static final String DB_NAME = "PROFILE.DB";
-		static final int DB_VERSION = 1;
+		static final int DB_VERSION = 2;
 		
 	// TABLE CREATION STATEMENT
 	private static final String CREATE_TABLE = "create table "
@@ -63,8 +63,8 @@ public class DBhelper extends SQLiteOpenHelper {
 			+ PROFILE_START4_SEL + " TEXT NOT NULL, "
 			+ PROFILE_START5_SEL + " TEXT NOT NULL, "
 			+ PROFILE_DELAY_SEL + " TEXT NOT NULL, "
-			+ PROFILE_IMAGE + " INTEGER, "
-			+ PROFILE_AFTER_TIMER + " TEXT NOT NULL, "
+			+ PROFILE_AFTER_TIMER + "TEXT,"
+			+ PROFILE_IMAGE + " INTEGER,"
 			+ PROFILE_SOUND + " TEXT);";
 
 	public DBhelper(Context context) {

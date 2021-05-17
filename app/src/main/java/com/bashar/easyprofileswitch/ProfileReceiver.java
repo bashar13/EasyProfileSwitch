@@ -1,8 +1,6 @@
 package com.bashar.easyprofileswitch;
 
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,9 +10,10 @@ import android.database.Cursor;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
-import android.telephony.SmsManager;
-import android.util.Log;
 import android.widget.Toast;
+
+import com.bashar.easyprofileswitch.database.DBhelper;
+import com.bashar.easyprofileswitch.database.SQLController;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -45,7 +44,7 @@ public class ProfileReceiver extends BroadcastReceiver {
 
         String extra_s = intent.getStringExtra("PROFILE");
         profile_id = (String.valueOf(extra_s));
-        long pro_id = Long.parseLong(profile_id);
+        int pro_id = Integer.parseInt(profile_id);
         storePref();
 
         Toast.makeText(context, "I'm running" + profile_id, Toast.LENGTH_LONG).show();
