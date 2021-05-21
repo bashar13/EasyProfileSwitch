@@ -4,19 +4,18 @@ package com.bashar.easyprofileswitch.mainscreen
  * Created by Khairul Bashar on 5/8/2021.
  */
 
-import android.app.Activity
 import com.bashar.easyprofileswitch.R
-import com.bashar.easyprofileswitch.database.SQLController
 import com.bashar.easyprofileswitch.models.Profile
-import com.bashar.easyprofileswitch.profilerepo.ProfileRepositoryImpl
+import com.bashar.easyprofileswitch.profilerepo.ProfileRepository
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepository
+import javax.inject.Inject
 
-class MainPresenter(private val sharedPref: SharedPreferenceRepository,
-                    private val db: SQLController,
-                    private val context: Activity) : MainContract.Presenter {
+class MainPresenter @Inject constructor(
+        private val sharedPref: SharedPreferenceRepository,
+        private val profileRepo: ProfileRepository,
+        private val adapter: CustomAdapter) : MainContract.Presenter {
 
     private var view:MainContract.View? = null
-    private val profileRepo = ProfileRepositoryImpl(db)
 
     override fun onViewCreated() {
         createProfileList()
@@ -83,18 +82,8 @@ class MainPresenter(private val sharedPref: SharedPreferenceRepository,
     }
 
     override fun getUpdatedList() {
-        val profileList = profileRepo.getProfileList()
-        val id = ArrayList<String>()
-        var name = ArrayList<String>()
-        var icon = ArrayList<Int>()
-        val it = profileList.listIterator()
-        while(it.hasNext()) {
-            val p = it.next()
-            id.add(p.getProfileId().toString())
-            name.add(p.getName())
-            icon.add(p.getImage())
-        }
-        val adapter = CustomAdapter(context, id, name, icon, sharedPref.getProfileSelection())
+        //val profileList = profileRepo.getProfileList()
+        //val adapter = CustomAdapter(context, sharedPref, profileList)
         //adapter.setViewItems(profileList, sharedPref)
         adapter.notifyDataSetChanged()
         view?.displayProfileList(adapter)

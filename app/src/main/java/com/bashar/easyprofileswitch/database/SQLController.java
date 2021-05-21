@@ -6,13 +6,16 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import javax.inject.Inject;
+
 public class SQLController {
 
 	private DBhelper dbhelper;
 	private Context ourcontext;
 	private SQLiteDatabase database;
 
-	public SQLController(Context c) {
+	@Inject
+	public SQLController (Context c) {
 		ourcontext = c;
 	}
 

@@ -18,14 +18,16 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.AdapterView.OnItemLongClickListener
 import androidx.appcompat.app.AlertDialog
 import com.bashar.easyprofileswitch.*
+import com.bashar.easyprofileswitch.application.EasyProfileSwitch
 import com.bashar.easyprofileswitch.database.SQLController
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepositoryImpl
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    lateinit var presenter:MainContract.Presenter
+    @Inject lateinit var presenter:MainContract.Presenter
     private lateinit var lvMain:ListView
 
     private var profileId: Int? = null
@@ -34,10 +36,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        (application as EasyProfileSwitch).appComponent.inject(this)
+
         lvMain = findViewById(R.id.list)
         lvMain.choiceMode = ListView.CHOICE_MODE_SINGLE
 
-        presenter = MainPresenter(SharedPreferenceRepositoryImpl(this), SQLController(this), this)
+        //presenter = MainPresenter(SharedPreferenceRepositoryImpl(this), SQLController(this), this)
         (presenter as MainPresenter).register(this)
         (presenter as MainPresenter).onViewCreated()
 

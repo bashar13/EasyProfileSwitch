@@ -1,6 +1,8 @@
 package com.bashar.easyprofileswitch.mainscreen
 
 import android.app.Activity
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -8,16 +10,29 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bashar.easyprofileswitch.InertCheckBox
 import com.bashar.easyprofileswitch.R
+import com.bashar.easyprofileswitch.models.Profile
+import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepository
+import javax.inject.Inject
 
-class CustomAdapter (private val context: Activity,
-                     private val profile_id: ArrayList<String>,
-                     private val profile_name: ArrayList<String>,
-                     private val icon_id: ArrayList<Int>,
-                     private val pos: String)
-    : ArrayAdapter<String?>(context, android.R.layout.simple_list_item_single_choice, profile_id as List<String?>) {
+class CustomAdapter @Inject constructor(context: Context,
+                     private val sharedPref: SharedPreferenceRepository,
+                     private val profileList: ArrayList<Profile>)
+    : ArrayAdapter<Profile?>(context, android.R.layout.simple_list_item_single_choice, profileList as List<Profile?>) {
+
+    private val mContext = context
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val inflater = context.layoutInflater
+        val profile_id = ArrayList<String>()
+        var profile_name = ArrayList<String>()
+        var icon_id = ArrayList<Int>()
+        val it = profileList.listIterator()
+        while(it.hasNext()) {
+            val p = it.next()
+            profile_id.add(p.getProfileId().toString())
+            profile_name.add(p.getName())
+            icon_id.add(p.getImage())
+        }
+        val inflater = LayoutInflater.from(mContext);
         val rowView = inflater.inflate(R.layout.list_item_view, null, true)
         val txtId = rowView.findViewById<View>(R.id.profile_id) as TextView
         val txtName = rowView.findViewById<View>(R.id.profile_name) as TextView
@@ -26,7 +41,7 @@ class CustomAdapter (private val context: Activity,
         txtId.text = profile_id[position]
         txtName.text = profile_name[position]
         icon.setImageResource(icon_id[position])
-        if (profile_id[position] == pos) {
+        if (profile_id[position] == sharedPref.getProfileSelection()) {
             button.setButtonDrawable(R.drawable.radio_on)
         }
         return rowView

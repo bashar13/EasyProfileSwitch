@@ -4,8 +4,9 @@ import android.database.Cursor
 import com.bashar.easyprofileswitch.database.DBhelper
 import com.bashar.easyprofileswitch.database.SQLController
 import com.bashar.easyprofileswitch.models.Profile
+import javax.inject.Inject
 
-class ProfileRepositoryImpl(private val db: SQLController): ProfileRepository {
+class ProfileRepositoryImpl @Inject constructor(private val db: SQLController): ProfileRepository {
 
     override fun createProfile(profile: Profile) {
         db.open()

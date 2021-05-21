@@ -7,8 +7,9 @@ package com.bashar.easyprofileswitch.sharedpreference
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class SharedPreferenceRepositoryImpl(context: Context) : SharedPreferenceRepository {
+class SharedPreferenceRepositoryImpl @Inject constructor(context: Context) : SharedPreferenceRepository {
 
     //Constants
     private val profileSelection:String = "SELECTED_PROFILE"

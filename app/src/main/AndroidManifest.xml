@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
+        android:name=".application.EasyProfileSwitch"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,14 +25,14 @@
         <activity
             android:name=".EditProfileActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UpdateProfileActivity"
             android:label="@string/title_activity_update_profile"
             android:parentActivityName=".mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.MainActivity" />
+                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
         </activity>
         <activity
             android:name=".HelpActivity"
@@ -39,7 +40,7 @@
             android:parentActivityName="mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.MainActivity" />
+                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
         </activity>
         <activity
             android:name=".AboutActivity"
@@ -47,7 +48,7 @@
             android:parentActivityName="mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.MainActivity" />
+                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -55,7 +56,7 @@
             android:parentActivityName="mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.MainActivity" />
+                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
         </activity>
         <activity
             android:name=".ProfileSettings"
