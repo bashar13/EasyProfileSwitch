@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -164,7 +165,7 @@ public class SQLController {
 		String[] allColumns = new String[] { DBhelper.PROFILE_ID,
 				DBhelper.PROFILE_NAME, DBhelper.PROFILE_RINGTONE, DBhelper.PROFILE_RING_VOL,
                 DBhelper.PROFILE_ALARM, DBhelper.PROFILE_SOUND, DBhelper.PROFILE_WIFI,
-				DBhelper.PROFILE_MOBILEDATA, DBhelper.PROFILE_IMAGE, DBhelper.PROFILE_DELAY_SEL, DBhelper.PROFILE_DELAY, DBhelper.PROFILE_AFTER_TIMER };
+				DBhelper.PROFILE_MOBILEDATA, DBhelper.PROFILE_IMAGE, DBhelper.PROFILE_DELAY_SEL, DBhelper.PROFILE_DELAY, /*DBhelper.PROFILE_AFTER_TIMER*/ };
 		try {
 			Cursor c = database.query(tableName, allColumns, DBhelper.PROFILE_ID
 					+ "=" + row_id, null, null, null, null);
@@ -174,6 +175,7 @@ public class SQLController {
 			}
 			return c;
 		} catch (Exception e) {
+			Log.e("SQLController", e.getMessage());
 		}
 
 		return null;

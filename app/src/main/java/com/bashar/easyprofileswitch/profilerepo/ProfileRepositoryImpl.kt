@@ -67,8 +67,7 @@ class ProfileRepositoryImpl @Inject constructor(private val db: SQLController): 
                 cursor.getString(8).toInt(),
                 cursor.getString(0).toInt(),
                 cursor.getString(9),
-                cursor.getString(10),
-                cursor.getString(11))
+                cursor.getString(10))
 
         return profile
     }
