@@ -10,6 +10,8 @@ import com.bashar.easyprofileswitch.profilerepo.ProfileRepositoryImpl
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.CustomListAdapter
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.AddOrUpdateProfileContract
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.AddOrUpdateProfilePresenter
+import com.bashar.easyprofileswitch.screens.settings.SettingsContract
+import com.bashar.easyprofileswitch.screens.settings.SettingsPresenter
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepository
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepositoryImpl
 import dagger.Module
@@ -26,7 +28,16 @@ class GlobalApplicationModule {
 
     @Provides
     @Singleton
-    fun provideUpdateProfilePresenter(profileRepo: ProfileRepository, adapter: CustomListAdapter): AddOrUpdateProfileContract.Presenter = AddOrUpdateProfilePresenter(profileRepo, adapter)
+    fun provideUpdateProfilePresenter(profileRepo: ProfileRepository,
+                                      adapter: CustomListAdapter)
+    : AddOrUpdateProfileContract.Presenter = AddOrUpdateProfilePresenter(profileRepo, adapter)
+
+    @Provides
+    @Singleton
+    fun provideSettingsPresenter(context: Context,
+                                 sharedPref: SharedPreferenceRepository,
+                                 profileRepo: ProfileRepository)
+    : SettingsContract.Presenter = SettingsPresenter(context, sharedPref, profileRepo)
 
     @Provides
     @Singleton

@@ -51,7 +51,7 @@
                 android:value="com.bashar.easyprofileswitch.screens.mainscreen.MainActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".screens.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".screens.mainscreen.MainActivity">
             <meta-data

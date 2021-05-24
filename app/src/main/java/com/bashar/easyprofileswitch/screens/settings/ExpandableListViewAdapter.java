@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.screens.settings;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bashar.easyprofileswitch.R;
 import com.bashar.easyprofileswitch.database.SQLController;
 import com.bashar.easyprofileswitch.models.Category;
 

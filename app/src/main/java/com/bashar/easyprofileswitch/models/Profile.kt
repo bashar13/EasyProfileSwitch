@@ -6,8 +6,8 @@ class Profile(private val name: String,
               private val image: Int,
               private val profileId: Int = 1,
               private val delaySelect: String = "no", private val delay:String = "Set", private val afterTimer: String = "1",
-              private val start1: String = "Set", private val start2: String = "Set", private val start3: String = "Set", private val start4: String = "Set", private val start5: String = "Set",
-              private val start1Select: String = "no", private val start2Select: String = "no", private val start3Select: String = "no", private val start4Select: String = "no", private val start5Select: String = "no") {
+              private val start1Select: String = "no", private val start2Select: String = "no", private val start3Select: String = "no", private val start4Select: String = "no", private val start5Select: String = "no" ,
+              private val start1: String = "Set", private val start2: String = "Set", private val start3: String = "Set", private val start4: String = "Set", private val start5: String = "Set",) {
 
     fun getName(): String {
         return name;

@@ -61,14 +61,28 @@ public class SQLController {
 	}
 
 	public Cursor readData() {
-		String[] allColumns = new String[] { DBhelper.PROFILE_ID, DBhelper.PROFILE_NAME,
-				DBhelper.PROFILE_RINGTONE, DBhelper.PROFILE_RING_VOL, DBhelper.PROFILE_ALARM, DBhelper.PROFILE_SOUND,
-				DBhelper.PROFILE_WIFI, DBhelper.PROFILE_MOBILEDATA, DBhelper.PROFILE_IMAGE,
-				DBhelper.PROFILE_START1, DBhelper.PROFILE_START2, DBhelper.PROFILE_START3,
-				DBhelper.PROFILE_START4, DBhelper.PROFILE_START5,
-				DBhelper.PROFILE_START1_SEL, DBhelper.PROFILE_START2_SEL, DBhelper.PROFILE_START3_SEL,
-				DBhelper.PROFILE_START4_SEL, DBhelper.PROFILE_START5_SEL,
-				DBhelper.PROFILE_DELAY, DBhelper.PROFILE_DELAY_SEL};
+		String[] allColumns = new String[] { DBhelper.PROFILE_ID,
+				DBhelper.PROFILE_NAME,
+				DBhelper.PROFILE_RINGTONE,
+				DBhelper.PROFILE_RING_VOL,
+				DBhelper.PROFILE_ALARM,
+				DBhelper.PROFILE_SOUND,
+				DBhelper.PROFILE_WIFI,
+				DBhelper.PROFILE_MOBILEDATA,
+				DBhelper.PROFILE_IMAGE,
+				DBhelper.PROFILE_DELAY_SEL,
+				DBhelper.PROFILE_DELAY,
+				DBhelper.PROFILE_AFTER_TIMER,
+				DBhelper.PROFILE_START1_SEL,
+				DBhelper.PROFILE_START2_SEL,
+				DBhelper.PROFILE_START3_SEL,
+				DBhelper.PROFILE_START4_SEL,
+				DBhelper.PROFILE_START5_SEL,
+				DBhelper.PROFILE_START1,
+				DBhelper.PROFILE_START2,
+				DBhelper.PROFILE_START3,
+				DBhelper.PROFILE_START4,
+				DBhelper.PROFILE_START5};
 		Cursor c = database.query(DBhelper.TABLE_PROFILE, allColumns, null,
 				null, null, null, null);
 		if (c != null) {
