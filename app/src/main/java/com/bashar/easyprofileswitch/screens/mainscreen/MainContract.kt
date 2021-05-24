@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch.mainscreen
+package com.bashar.easyprofileswitch.screens.mainscreen
 
 /**
  * Created by Khairul Bashar on 5/8/2021.

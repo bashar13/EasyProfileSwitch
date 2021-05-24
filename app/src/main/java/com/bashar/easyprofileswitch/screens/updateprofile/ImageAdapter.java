@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.screens.updateprofile;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bashar.easyprofileswitch.R;
 
 /**
  * Created by Jahid on 9/14/2015.

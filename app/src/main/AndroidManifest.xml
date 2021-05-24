@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mainscreen.MainActivity"
+            android:name=".screens.mainscreen.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,44 +27,36 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UpdateProfileActivity"
+            android:name=".screens.updateprofile.UpdateProfileActivity"
             android:label="@string/title_activity_update_profile"
-            android:parentActivityName=".mainscreen.MainActivity">
+            android:parentActivityName=".screens.mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
+                android:value="com.bashar.easyprofileswitch.screens.mainscreen.MainActivity" />
         </activity>
         <activity
-            android:name=".HelpActivity"
+            android:name=".screens.helpscreen.HelpActivity"
             android:label="@string/title_activity_help"
-            android:parentActivityName="mainscreen.MainActivity">
+            android:parentActivityName=".screens.mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
+                android:value="com.bashar.easyprofileswitch.screens.mainscreen.MainActivity" />
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name=".screens.aboutscreen.AboutActivity"
             android:label="@string/title_activity_about"
-            android:parentActivityName="mainscreen.MainActivity">
+            android:parentActivityName=".screens.mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
+                android:value="com.bashar.easyprofileswitch.screens.mainscreen.MainActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="mainscreen.MainActivity">
+            android:parentActivityName=".screens.mainscreen.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.mainscreen.MainActivity" />
-        </activity>
-        <activity
-            android:name=".ProfileSettings"
-            android:label="@string/title_activity_profile_settings"
-            android:parentActivityName=".SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bashar.easyprofileswitch.SettingsActivity" />
+                android:value="com.bashar.easyprofileswitch.screens.mainscreen.MainActivity" />
         </activity>
 
         <receiver

@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.screens.mainscreen;
 
 import android.content.Context;
 import android.util.AttributeSet;

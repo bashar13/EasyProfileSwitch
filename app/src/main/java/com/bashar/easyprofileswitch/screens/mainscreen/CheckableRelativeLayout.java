@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.screens.mainscreen;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rate_app"
-            android:id="@+id/button3"
+            android:id="@+id/rate_button"
             android:layout_below="@+id/textView19"
             android:layout_marginTop="54dp"
             android:layout_alignParentStart="true" />
@@ -99,17 +99,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/share_app"
-            android:id="@+id/button4"
-            android:layout_alignTop="@+id/button3"
+            android:id="@+id/share_button"
+            android:layout_alignTop="@+id/rate_button"
             android:layout_alignEnd="@+id/textView16" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/more_from_dev"
-            android:id="@+id/button5"
-            android:layout_below="@+id/button3"
-            android:layout_alignStart="@+id/button3" />
+            android:id="@+id/more_apps_button"
+            android:layout_below="@+id/rate_button"
+            android:visibility="invisible"
+            android:layout_alignStart="@+id/rate_button" />
 
     </RelativeLayout>
 </ScrollView>

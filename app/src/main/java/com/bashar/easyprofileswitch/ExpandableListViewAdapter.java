@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bashar.easyprofileswitch.database.SQLController;
+import com.bashar.easyprofileswitch.models.Category;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

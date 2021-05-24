@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch.mainscreen
+package com.bashar.easyprofileswitch.screens.mainscreen
 
 /**
  * Created by Khairul Bashar on 5/8/2021.
@@ -13,7 +13,8 @@ import javax.inject.Inject
 class MainPresenter @Inject constructor(
         private val sharedPref: SharedPreferenceRepository,
         private val profileRepo: ProfileRepository,
-        private val adapter: CustomAdapter) : MainContract.Presenter {
+        private val adapter: CustomAdapter)
+    : MainContract.Presenter {
 
     private var view:MainContract.View? = null
 
@@ -56,11 +57,12 @@ class MainPresenter @Inject constructor(
     }
 
     override fun unregister() {
-        TODO("Not yet implemented")
+        view = null;
     }
 
     override fun register(view: MainContract.View) {
         this.view = view
+        onViewCreated()
     }
 
     override fun createProfileList() {
@@ -82,9 +84,9 @@ class MainPresenter @Inject constructor(
     }
 
     override fun getUpdatedList() {
-        //val profileList = profileRepo.getProfileList()
         //val adapter = CustomAdapter(context, sharedPref, profileList)
         //adapter.setViewItems(profileList, sharedPref)
+        adapter.updateProfileList(profileRepo.getProfileList())
         adapter.notifyDataSetChanged()
         view?.displayProfileList(adapter)
     }

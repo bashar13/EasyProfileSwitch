@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch.mainscreen
+package com.bashar.easyprofileswitch.screens.mainscreen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,23 +11,25 @@ import android.content.Intent
 import android.media.AudioManager
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
-import android.os.PersistableBundle
+import android.os.Build
 import android.view.*
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.AdapterView.OnItemLongClickListener
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.bashar.easyprofileswitch.*
 import com.bashar.easyprofileswitch.application.EasyProfileSwitch
-import com.bashar.easyprofileswitch.database.SQLController
-import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepositoryImpl
+import com.bashar.easyprofileswitch.screens.aboutscreen.AboutActivity
+import com.bashar.easyprofileswitch.screens.helpscreen.HelpActivity
+import com.bashar.easyprofileswitch.screens.updateprofile.UpdateProfileActivity
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    @Inject lateinit var presenter:MainContract.Presenter
+    @Inject lateinit var presenter: MainContract.Presenter
     private lateinit var lvMain:ListView
 
     private var profileId: Int? = null
@@ -42,8 +44,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         lvMain.choiceMode = ListView.CHOICE_MODE_SINGLE
 
         //presenter = MainPresenter(SharedPreferenceRepositoryImpl(this), SQLController(this), this)
-        (presenter as MainPresenter).register(this)
-        (presenter as MainPresenter).onViewCreated()
+        presenter.register(this)
 
         lvMain.onItemClickListener = OnItemClickListener { parent: AdapterView<*>?, view: View, position: Int, id: Long ->
             //Cursor tmp = (Cursor)parent.getItemAtPosition(position);
@@ -161,8 +162,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         lvMain.onItemLongClickListener = OnItemLongClickListener { parent, view, position, id -> //Cursor tmp = (Cursor)parent.getItemAtPosition(position);
             val profileStr = parent.getItemAtPosition(position).toString()
-            //Toast.makeText(MainActivity.this, tmp.getString(0) + tmp.getString(1) + tmp.getString(2), Toast.LENGTH_LONG).show();
-            profileId = profileStr.toInt()
+            profileId = id.toInt() + 1
             startActionMode(mActionModeCallback)
             true
         }
@@ -174,6 +174,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -206,12 +207,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 true
             }
             R.id.action_about -> {
-                val intent = Intent(this@MainActivity, AboutActivity::class.java)
+                val intent = Intent(this, AboutActivity::class.java)
                 startActivity(intent)
             }
 
             R.id.action_add -> {
-                val li = LayoutInflater.from(this@MainActivity)
+                val li = LayoutInflater.from(this)
                 val promptsView = li.inflate(R.layout.dialog_add_profile, null)
                 val alertDialogBuilder = AlertDialog.Builder(
                         this@MainActivity)
@@ -233,7 +234,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                                 Toast.makeText(this@MainActivity, "Insert a name", Toast.LENGTH_LONG).show()
                             } else {
                                 //Toast.makeText(MainActivity.this, "Insert a name", Toast.LENGTH_LONG).show();
-                                val edit_profile_act = Intent(this@MainActivity, EditProfileActivity::class.java)
+                                val edit_profile_act = Intent(this@MainActivity, UpdateProfileActivity::class.java)
                                 edit_profile_act.putExtra("Profile_name", profile_name)
                                 startActivity(edit_profile_act)
                             }
@@ -281,9 +282,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     true
                 }
                 R.id.action_edit -> {
-                    val intetUpdate = Intent(this@MainActivity, UpdateProfileActivity::class.java)
-                    intetUpdate.putExtra("Profile_id", profileId)
-                    startActivity(intetUpdate)
+                    var intent = Intent(this@MainActivity, UpdateProfileActivity::class.java)
+                    intent.putExtra("Profile_id", profileId)
+                    startActivity(intent)
                     mode.finish()
                     true
                 }
@@ -336,7 +337,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun onResume() {
-        presenter?.getUpdatedList()
         super.onResume()
+        presenter.register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.unregister()
     }
 }

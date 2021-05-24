@@ -28,7 +28,18 @@ class ProfileRepositoryImpl @Inject constructor(private val db: SQLController): 
     }
 
     override fun updateProfile(profile: Profile) {
-        TODO("Not yet implemented")
+        db.open()
+        db.updateData(profile.getProfileId().toLong(),
+                profile.getName(),
+                profile.getRingMode(),
+                profile.getRingVol(),
+                profile.getAlarmVol(),
+                profile.getOtherVol(),
+                profile.getWifi(),
+                profile.getMobileData(),
+                profile.getImage())
+        db.close()
+
     }
 
     override fun getProfileList(): ArrayList<Profile> {
@@ -68,7 +79,7 @@ class ProfileRepositoryImpl @Inject constructor(private val db: SQLController): 
                 cursor.getString(0).toInt(),
                 cursor.getString(9),
                 cursor.getString(10))
-
+        db.close()
         return profile
     }
 

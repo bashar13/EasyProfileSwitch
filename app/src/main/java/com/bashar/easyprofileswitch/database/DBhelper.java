@@ -39,7 +39,7 @@ public class DBhelper extends SQLiteOpenHelper {
 
 		// DATABASE INFORMATION
 		static final String DB_NAME = "PROFILE.DB";
-		static final int DB_VERSION = 2;
+		static final int DB_VERSION = 1;
 		
 	// TABLE CREATION STATEMENT
 	private static final String CREATE_TABLE = "create table "
@@ -63,7 +63,7 @@ public class DBhelper extends SQLiteOpenHelper {
 			+ PROFILE_START4_SEL + " TEXT NOT NULL, "
 			+ PROFILE_START5_SEL + " TEXT NOT NULL, "
 			+ PROFILE_DELAY_SEL + " TEXT NOT NULL, "
-			+ PROFILE_AFTER_TIMER + "TEXT,"
+			+ PROFILE_AFTER_TIMER + " TEXT, "
 			+ PROFILE_IMAGE + " INTEGER,"
 			+ PROFILE_SOUND + " TEXT);";
 

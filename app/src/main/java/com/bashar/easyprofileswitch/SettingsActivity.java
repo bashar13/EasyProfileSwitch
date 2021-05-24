@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.bashar.easyprofileswitch.database.DBhelper;
 import com.bashar.easyprofileswitch.database.SQLController;
+import com.bashar.easyprofileswitch.models.Category;
+import com.bashar.easyprofileswitch.models.SubCategory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
         spi_normal = (Spinner)findViewById(R.id.spinner_normal);
         spi_min = (Spinner)findViewById(R.id.spinner_min);
 
-        settings_pref = this.getSharedPreferences("settings_pref", Context.MODE_WORLD_WRITEABLE);
+        settings_pref = this.getSharedPreferences("settings_pref", Context.MODE_PRIVATE);
         getPref();
         String[] normal_values = new String[] {
           " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "

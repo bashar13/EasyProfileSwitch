@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.models;
 
 /**
  * Created by Jahid on 10/1/2015.

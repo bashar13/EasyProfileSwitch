@@ -1,6 +1,5 @@
-package com.bashar.easyprofileswitch.mainscreen
+package com.bashar.easyprofileswitch.screens.mainscreen
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.bashar.easyprofileswitch.InertCheckBox
 import com.bashar.easyprofileswitch.R
 import com.bashar.easyprofileswitch.models.Profile
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepository
@@ -16,10 +14,14 @@ import javax.inject.Inject
 
 class CustomAdapter @Inject constructor(context: Context,
                      private val sharedPref: SharedPreferenceRepository,
-                     private val profileList: ArrayList<Profile>)
+                     private var profileList: ArrayList<Profile>)
     : ArrayAdapter<Profile?>(context, android.R.layout.simple_list_item_single_choice, profileList as List<Profile?>) {
 
     private val mContext = context
+
+    public fun updateProfileList(list: ArrayList<Profile>){
+        profileList = list
+    }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val profile_id = ArrayList<String>()

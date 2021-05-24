@@ -54,9 +54,9 @@ public class SQLController {
 		cv.put(DBhelper.PROFILE_START2_SEL, sel_s2);
 		cv.put(DBhelper.PROFILE_START3_SEL, sel_s3);
 		cv.put(DBhelper.PROFILE_START4_SEL, sel_s4);
-		//cv.put(DBhelper.PROFILE_AFTER_TIMER, after_timer);
 		cv.put(DBhelper.PROFILE_START5_SEL, sel_s5);
 		cv.put(DBhelper.PROFILE_DELAY_SEL, sel_delay);
+		cv.put(DBhelper.PROFILE_AFTER_TIMER, after_timer);
 		database.insert(DBhelper.TABLE_PROFILE, null, cv);
 	}
 
