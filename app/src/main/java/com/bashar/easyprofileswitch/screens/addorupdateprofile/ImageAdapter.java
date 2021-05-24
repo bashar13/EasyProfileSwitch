@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch.screens.updateprofile;
+package com.bashar.easyprofileswitch.screens.addorupdateprofile;
 
 import android.content.Context;
 import android.view.LayoutInflater;

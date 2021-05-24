@@ -22,7 +22,7 @@ import com.bashar.easyprofileswitch.*
 import com.bashar.easyprofileswitch.application.EasyProfileSwitch
 import com.bashar.easyprofileswitch.screens.aboutscreen.AboutActivity
 import com.bashar.easyprofileswitch.screens.helpscreen.HelpActivity
-import com.bashar.easyprofileswitch.screens.updateprofile.UpdateProfileActivity
+import com.bashar.easyprofileswitch.screens.addorupdateprofile.AddOrUpdateProfileActivity
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import javax.inject.Inject
@@ -234,7 +234,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                                 Toast.makeText(this@MainActivity, "Insert a name", Toast.LENGTH_LONG).show()
                             } else {
                                 //Toast.makeText(MainActivity.this, "Insert a name", Toast.LENGTH_LONG).show();
-                                val edit_profile_act = Intent(this@MainActivity, UpdateProfileActivity::class.java)
+                                val edit_profile_act = Intent(this@MainActivity, AddOrUpdateProfileActivity::class.java)
                                 edit_profile_act.putExtra("Profile_name", profile_name)
                                 startActivity(edit_profile_act)
                             }
@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     true
                 }
                 R.id.action_edit -> {
-                    var intent = Intent(this@MainActivity, UpdateProfileActivity::class.java)
+                    var intent = Intent(this@MainActivity, AddOrUpdateProfileActivity::class.java)
                     intent.putExtra("Profile_id", profileId)
                     startActivity(intent)
                     mode.finish()

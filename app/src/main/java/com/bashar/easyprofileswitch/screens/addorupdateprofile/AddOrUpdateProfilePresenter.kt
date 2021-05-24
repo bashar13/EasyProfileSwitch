@@ -1,16 +1,16 @@
-package com.bashar.easyprofileswitch.screens.updateprofile
+package com.bashar.easyprofileswitch.screens.addorupdateprofile
 
 import com.bashar.easyprofileswitch.models.Profile
 import com.bashar.easyprofileswitch.profilerepo.ProfileRepository
 import javax.inject.Inject
 
-class UpdateProfilePresenter @Inject constructor(private val profileRepo: ProfileRepository,
-                                                 private val adapter: CustomListAdapter)
-    : UpdateProfileContract.Presenter {
+class AddOrUpdateProfilePresenter @Inject constructor(private val profileRepo: ProfileRepository,
+                                                      private val adapter: CustomListAdapter)
+    : AddOrUpdateProfileContract.Presenter {
 
     private var profile: Profile? = null
 
-    var view:UpdateProfileContract.View? = null
+    var view:AddOrUpdateProfileContract.View? = null
     override fun displayExistingProfileData(id: Int) {
         profile = profileRepo.getProfile(id)
         val set_type = arrayOf(profile?.getRingMode(), profile?.getRingVol(), profile?.getAlarmVol(), profile?.getOtherVol(), profile?.getWifi(), profile?.getMobileData())
@@ -58,7 +58,7 @@ class UpdateProfilePresenter @Inject constructor(private val profileRepo: Profil
         profile = null
     }
 
-    override fun register(view: UpdateProfileContract.View) {
+    override fun register(view: AddOrUpdateProfileContract.View) {
         this.view = view
     }
 }

@@ -3,7 +3,7 @@ package com.bashar.easyprofileswitch.dagger
 import android.content.Context
 import com.bashar.easyprofileswitch.screens.mainscreen.CustomAdapter
 import com.bashar.easyprofileswitch.profilerepo.ProfileRepository
-import com.bashar.easyprofileswitch.screens.updateprofile.CustomListAdapter
+import com.bashar.easyprofileswitch.screens.addorupdateprofile.CustomListAdapter
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepository
 import dagger.Module
 import dagger.Provides

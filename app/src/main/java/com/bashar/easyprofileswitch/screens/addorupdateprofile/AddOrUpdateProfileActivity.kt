@@ -1,13 +1,11 @@
-package com.bashar.easyprofileswitch.screens.updateprofile
+package com.bashar.easyprofileswitch.screens.addorupdateprofile
 
 import android.app.Dialog
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bashar.easyprofileswitch.R
@@ -15,9 +13,9 @@ import com.bashar.easyprofileswitch.application.EasyProfileSwitch
 import com.bashar.easyprofileswitch.screens.mainscreen.MainActivity
 import javax.inject.Inject
 
-class UpdateProfileActivity : AppCompatActivity(), UpdateProfileContract.View {
+class AddOrUpdateProfileActivity : AppCompatActivity(), AddOrUpdateProfileContract.View {
 
-    @Inject lateinit var presenter: UpdateProfileContract.Presenter
+    @Inject lateinit var presenter: AddOrUpdateProfileContract.Presenter
 
     private val CATEGORY_ID = 0
 

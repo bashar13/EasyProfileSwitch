@@ -1,8 +1,8 @@
-package com.bashar.easyprofileswitch.screens.updateprofile
+package com.bashar.easyprofileswitch.screens.addorupdateprofile
 
 import com.bashar.easyprofileswitch.BasePresenter
 
-interface UpdateProfileContract {
+interface AddOrUpdateProfileContract {
     interface Presenter : BasePresenter<View>{
         fun displayExistingProfileData(id: Int)
         fun displayNewProfileData(name: String)

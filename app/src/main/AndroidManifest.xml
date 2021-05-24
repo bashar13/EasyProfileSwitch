@@ -27,7 +27,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".screens.updateprofile.UpdateProfileActivity"
+            android:name=".screens.addorupdateprofile.AddOrUpdateProfileActivity"
             android:label="@string/title_activity_update_profile"
             android:parentActivityName=".screens.mainscreen.MainActivity">
             <meta-data
