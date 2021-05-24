@@ -8,6 +8,7 @@ interface SettingsContract {
     interface Presenter: BasePresenter<View> {
         fun displayCurrentSettings()
         fun displayProfileSettings(eListView: ExpandableListView)
+        fun updateProfileSchedule(id: Int, position: Int, select: String)
         fun saveNormalVolumeLevel(level: Int)
         fun saveMinVolumeLevel(level: Int)
 

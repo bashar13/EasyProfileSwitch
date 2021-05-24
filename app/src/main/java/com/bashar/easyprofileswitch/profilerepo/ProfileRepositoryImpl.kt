@@ -96,6 +96,12 @@ class ProfileRepositoryImpl @Inject constructor(private val db: SQLController): 
         return profile
     }
 
+    override fun updateProfileSchedule(id: Int, position: Int, select: String) {
+        db.open()
+        db.updateProfileSchedule(id.toLong(), position, select)
+        db.close()
+    }
+
     override fun deleteTable() {
         db.open()
         db.deleteTable()

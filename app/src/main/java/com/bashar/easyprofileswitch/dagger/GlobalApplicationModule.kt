@@ -10,8 +10,8 @@ import com.bashar.easyprofileswitch.profilerepo.ProfileRepositoryImpl
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.CustomListAdapter
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.AddOrUpdateProfileContract
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.AddOrUpdateProfilePresenter
-import com.bashar.easyprofileswitch.screens.settings.SettingsContract
-import com.bashar.easyprofileswitch.screens.settings.SettingsPresenter
+import com.bashar.easyprofileswitch.SettingsContract
+import com.bashar.easyprofileswitch.SettingsPresenter
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepository
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepositoryImpl
 import dagger.Module
