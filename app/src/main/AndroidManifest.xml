@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditProfileActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".screens.addorupdateprofile.AddOrUpdateProfileActivity"
             android:label="@string/title_activity_update_profile"
             android:parentActivityName=".screens.mainscreen.MainActivity">
@@ -52,7 +48,7 @@
                 android:value="com.bashar.easyprofileswitch.screens.mainscreen.MainActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".screens.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.AppCompat"
             android:parentActivityName=".screens.mainscreen.MainActivity">

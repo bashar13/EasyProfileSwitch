@@ -1,8 +1,9 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.screens.settings;
 
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 
+import com.bashar.easyprofileswitch.BasePresenter;
 import com.bashar.easyprofileswitch.screens.settings.ExpandableListViewAdapter;
 
 import java.util.Calendar;

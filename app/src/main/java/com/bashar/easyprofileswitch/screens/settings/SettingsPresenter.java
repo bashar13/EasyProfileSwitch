@@ -1,17 +1,18 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.screens.settings;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 
+import com.bashar.easyprofileswitch.R;
 import com.bashar.easyprofileswitch.models.Category;
 import com.bashar.easyprofileswitch.models.Profile;
 import com.bashar.easyprofileswitch.models.SubCategory;
 import com.bashar.easyprofileswitch.profilerepo.ProfileRepository;
 import com.bashar.easyprofileswitch.screens.settings.ExpandableListViewAdapter;
+import com.bashar.easyprofileswitch.screens.settings.SettingsContract;
 import com.bashar.easyprofileswitch.sharedpreference.SharedPreferenceRepository;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 

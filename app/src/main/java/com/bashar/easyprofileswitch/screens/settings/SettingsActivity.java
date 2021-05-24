@@ -1,7 +1,6 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.screens.settings;
 
 import android.app.AlarmManager;
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -18,32 +17,26 @@ import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bashar.easyprofileswitch.ProfileReceiver;
+import com.bashar.easyprofileswitch.R;
 import com.bashar.easyprofileswitch.application.EasyProfileSwitch;
 import com.bashar.easyprofileswitch.database.DBhelper;
 import com.bashar.easyprofileswitch.database.SQLController;
 import com.bashar.easyprofileswitch.models.Category;
 import com.bashar.easyprofileswitch.models.SubCategory;
-import com.bashar.easyprofileswitch.screens.settings.ExpandableListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
-
 public class SettingsActivity extends AppCompatActivity implements SettingsContract.View {
 
-    @Inject SettingsPresenter presenter;
+    @Inject
+    SettingsPresenter presenter;
 
     Spinner spi_normal, spi_min;
-    SharedPreferences settings_pref;
-    int sel_nor, sel_min;
-    SQLController dbcon;
-
     ExpandableListView expandableListview;
-    ExpandableListViewAdapter adapter;
-
     PendingIntent[][] pending_profile = new PendingIntent[200][10];
 
     @Override
@@ -86,8 +79,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
 
             }
         });
-        dbcon = new SQLController(this);
-        dbcon.open();
 
         expandableListview.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
@@ -139,14 +130,9 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
                             }
 
                         }
-
-                        dbcon.updateProfileSchedule(pro_id, childPosition, selected);
-
-                        adapter.notifyDataSetChanged();
+                        presenter.updateProfileSchedule((int) pro_id, childPosition, selected);
                 }
-
                 }
-
                 return true;
             }
         });
@@ -173,113 +159,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
 
         return super.onOptionsItemSelected(item);
     }*/
-
-    private void updateProfileList() {
-
-        String profile_settings[] = {"Delay Timer", "At Timer End", "Start Time 1", "Start Time 2", "Start Time 3", "Start Time 4", "Start Time 5" };
-        Cursor cursor = dbcon.readData();
-        int count = cursor.getCount();
-        cursor.moveToFirst();
-
-        String profile_name[] = new String[count];
-        String profile_image[] = new String[count];
-        String profile_id[] = new String[count];
-        int icon_id[] = new int[count], j =0;
-
-        String profile_delay[] = new String[count];
-        String profile_start1[] = new String[count];
-        String profile_start2[] = new String[count];
-        String profile_start3[] = new String[count];
-        String profile_start4[] = new String[count];
-        String profile_start5[] = new String[count];
-
-        String profile_delay_data[] = new String[count];
-        String profile_start1_data[] = new String[count];
-        String profile_start2_data[] = new String[count];
-        String profile_start3_data[] = new String[count];
-        String profile_start4_data[] = new String[count];
-        String profile_start5_data[] = new String[count];
-
-        String profile_timer[] = new String[count];
-
-        do {
-            profile_id[j]= cursor.getString(0);
-            profile_name[j] = cursor.getString(1);
-            profile_image[j] = cursor.getString(8);
-            icon_id[j] = Integer.parseInt(profile_image[j]);
-
-            profile_delay[j] = cursor.getString(9);
-            profile_start1[j] = cursor.getString(10);
-            profile_start2[j] = cursor.getString(11);
-            profile_start3[j] = cursor.getString(12);
-            profile_start4[j] = cursor.getString(13);
-            profile_start5[j] = cursor.getString(14);
-
-            profile_delay_data[j] = cursor.getString(15);
-            profile_start1_data[j] = cursor.getString(16);
-            profile_start2_data[j] = cursor.getString(17);
-            profile_start3_data[j] = cursor.getString(18);
-            profile_start4_data[j] = cursor.getString(19);
-            profile_start5_data[j] = cursor.getString(20);
-
-            int timer_id = Integer.parseInt(cursor.getString(21));
-            Cursor timer_c = dbcon.readSpecificData(DBhelper.TABLE_PROFILE, timer_id);
-            profile_timer[j] = timer_c.getString(1);
-            j++;
-        } while(cursor.moveToNext());
-        for (int i = 0; i < count; i++) {
-            Category category = new Category();
-            category.category_name = profile_name[i];
-            category.category_id = profile_id[i];
-            for (j = 0; j < 7; j++) {
-                String sub_temp = null;
-                SubCategory subcategory = new SubCategory();
-                subcategory.subcategory_name =  profile_settings[j];
-                if(j == 0) {
-                    subcategory.subcategory_value = profile_delay_data[i];
-                    sub_temp = profile_delay[i];
-                }
-                else if(j == 1) {
-                    subcategory.subcategory_value = profile_timer[i];
-                    sub_temp = "yes";
-                }
-                else if(j == 2) {
-                    subcategory.subcategory_value = profile_start1_data[i];
-                    sub_temp = profile_start1[i];
-                }
-                else if(j == 3) {
-                    subcategory.subcategory_value = profile_start2_data[i];
-                    sub_temp = profile_start2[i];
-                }
-                else if(j == 4) {
-                    subcategory.subcategory_value = profile_start3_data[i];
-                    sub_temp = profile_start3[i];
-                }
-                else if(j == 5) {
-                    subcategory.subcategory_value = profile_start4_data[i];
-                    sub_temp = profile_start4[i];
-                }
-
-                else if(j==6) {
-                    subcategory.subcategory_value = profile_start5_data[i];
-                    sub_temp = profile_start5[i];
-                }
-
-                if(sub_temp.equals("yes")) {
-                    subcategory.selected = true;
-                }
-                else {
-                    subcategory.selected = false;
-                }
-                category.subcategory_array.add(subcategory);
-            }
-            //category_array.add(category);
-        }
-
-
-        //adapter = new ExpandableListViewAdapter(SettingsActivity.this, expandableListview, category_array);
-        //expandableListview.setAdapter(adapter);
-    }
 
     @Override
     public void updateSettingsView(ArrayAdapter<String> adapterNormal, ArrayAdapter<String> adapterMin, int minVol, int normalVol) {

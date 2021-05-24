@@ -23,7 +23,7 @@ import com.bashar.easyprofileswitch.application.EasyProfileSwitch
 import com.bashar.easyprofileswitch.screens.aboutscreen.AboutActivity
 import com.bashar.easyprofileswitch.screens.helpscreen.HelpActivity
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.AddOrUpdateProfileActivity
-import com.bashar.easyprofileswitch.SettingsActivity
+import com.bashar.easyprofileswitch.screens.settings.SettingsActivity
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import javax.inject.Inject
