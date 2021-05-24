@@ -9,7 +9,7 @@ import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bashar.easyprofileswitch.R
-import com.bashar.easyprofileswitch.application.EasyProfileSwitch
+import com.bashar.easyprofileswitch.EasyProfileSwitch
 import com.bashar.easyprofileswitch.screens.mainscreen.MainActivity
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch.application
+package com.bashar.easyprofileswitch
 
 import android.app.Application
 import com.bashar.easyprofileswitch.dagger.AppComponent

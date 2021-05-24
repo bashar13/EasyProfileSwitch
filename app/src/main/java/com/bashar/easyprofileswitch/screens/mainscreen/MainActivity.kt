@@ -19,7 +19,7 @@ import android.widget.AdapterView.OnItemLongClickListener
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.bashar.easyprofileswitch.*
-import com.bashar.easyprofileswitch.application.EasyProfileSwitch
+import com.bashar.easyprofileswitch.EasyProfileSwitch
 import com.bashar.easyprofileswitch.screens.aboutscreen.AboutActivity
 import com.bashar.easyprofileswitch.screens.helpscreen.HelpActivity
 import com.bashar.easyprofileswitch.screens.addorupdateprofile.AddOrUpdateProfileActivity

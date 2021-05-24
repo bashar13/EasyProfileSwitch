@@ -11,7 +11,7 @@ import java.util.Calendar;
 public interface SettingsContract {
     interface Presenter extends BasePresenter<View> {
         void displayCurrentSettings();
-        void displayProfileSettings(ExpandableListView eListView);
+        void gatherProfileSettings();
         void updateProfileSchedule(int id, int position, String select);
         void saveNormalVolumeLevel(int level);
         void saveMinVolumeLevel(int level);
@@ -20,7 +20,7 @@ public interface SettingsContract {
 
     interface View {
         void updateSettingsView(ArrayAdapter<String> adapterNormal, ArrayAdapter<String> adapterMin, int minVol, int normalVol);
-        void updateProfileSettingsView(ExpandableListViewAdapter adapter);
+        void updateProfileSettingsView();
 
     }
 }

@@ -4,8 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,13 +15,10 @@ import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bashar.easyprofileswitch.ProfileReceiver;
+import com.bashar.easyprofileswitch.receiver.ProfileReceiver;
 import com.bashar.easyprofileswitch.R;
-import com.bashar.easyprofileswitch.application.EasyProfileSwitch;
-import com.bashar.easyprofileswitch.database.DBhelper;
-import com.bashar.easyprofileswitch.database.SQLController;
+import com.bashar.easyprofileswitch.EasyProfileSwitch;
 import com.bashar.easyprofileswitch.models.Category;
-import com.bashar.easyprofileswitch.models.SubCategory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
 
     Spinner spi_normal, spi_min;
     ExpandableListView expandableListview;
+    ExpandableListViewAdapter adapter;
     PendingIntent[][] pending_profile = new PendingIntent[200][10];
 
     @Override
@@ -52,9 +48,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         expandableListview=(ExpandableListView) findViewById(R.id.expandable_profile_settings);
 
         presenter.displayCurrentSettings();
-        presenter.displayProfileSettings(expandableListview);
-
-
+        presenter.gatherProfileSettings();
 
         spi_normal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -131,6 +125,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
 
                         }
                         presenter.updateProfileSchedule((int) pro_id, childPosition, selected);
+                        adapter.notifyDataSetChanged();
                 }
                 }
                 return true;
@@ -169,7 +164,11 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
     }
 
     @Override
-    public void updateProfileSettingsView(ExpandableListViewAdapter adapter) {
+    public void updateProfileSettingsView() {
+        adapter = new ExpandableListViewAdapter(
+                SettingsActivity.this, expandableListview,
+                presenter.getCategoryList());
+        adapter.notifyDataSetChanged();
         expandableListview.setAdapter(adapter);
     }
 }

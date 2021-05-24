@@ -20,13 +20,11 @@ import javax.inject.Inject;
 
 public class SettingsPresenter implements SettingsContract.Presenter {
 
-    private Context context;
-    private SharedPreferenceRepository sharedPref;
-    private ProfileRepository profileRepo;
+    private final Context context;
+    private final SharedPreferenceRepository sharedPref;
+    private final ProfileRepository profileRepo;
 
     private SettingsContract.View view = null;
-
-    private ExpandableListViewAdapter adapter;
     private ArrayList<Category> categoryArray = new ArrayList<>();
 
     @Inject
@@ -54,7 +52,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     }
 
     @Override
-    public void displayProfileSettings(ExpandableListView eListView) {
+    public void gatherProfileSettings() {
         String[] profileSettins = {"Delay Timer", "At Timer End", "Start Time 1", "Start Time 2", "Start Time 3", "Start Time 4", "Start Time 5"};
         ArrayList<Profile> profileList= profileRepo.getProfileList();
 
@@ -105,14 +103,12 @@ public class SettingsPresenter implements SettingsContract.Presenter {
             }
             categoryArray.add(category);
         }
-        adapter = new ExpandableListViewAdapter(context, eListView, categoryArray);
-        view.updateProfileSettingsView(adapter);
+        view.updateProfileSettingsView();
     }
 
     @Override
     public void updateProfileSchedule(int id, int position, String select) {
         profileRepo.updateProfileSchedule(id, position, select);
-        adapter.notifyDataSetChanged();
     }
 
     @Override

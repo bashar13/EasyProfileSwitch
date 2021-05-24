@@ -1,4 +1,4 @@
-package com.bashar.easyprofileswitch;
+package com.bashar.easyprofileswitch.receiver;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
